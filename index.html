@@ -1,0 +1,104 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>NETRA Command Centre</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">NETRA</div>
+    <div class="tagline">Integrated Threat Detection</div>
+    <nav>
+      <button class="active">Dashboard</button>
+      <button>Live Feed</button>
+      <button>Map View</button>
+      <button>Robots</button>
+      <button>Alerts</button>
+      <button>Incident Logs</button>
+      <button>Analytics</button>
+    </nav>
+    <div class="side-note">RPF COMMAND CENTRE</div>
+  </aside>
+
+  <main>
+    <header>
+      <div>
+        <h1>NETRA Command Centre</h1>
+        <p>Real-time railway security monitoring</p>
+      </div>
+      <div class="clock" id="clock">--:--:--</div>
+    </header>
+
+    <section class="stats">
+      <div class="stat"><span>Robot</span><b id="robot-id">--</b></div>
+      <div class="stat"><span>Battery</span><b id="battery">--</b></div>
+      <div class="stat"><span>Mode</span><b id="mode">--</b></div>
+      <div class="stat"><span>Link</span><b id="online">--</b></div>
+      <div class="stat"><span>HAND-NETRA</span><b id="hand-status">--</b></div>
+    </section>
+
+    <section class="grid">
+      <div class="panel camera-panel">
+        <div class="panel-title">Live Feed — NETRA-QUAD 01</div>
+        <div class="camera-placeholder">
+          <div class="robot-card">NETRA-QUAD CAMERA FEED</div>
+          <small>Replace this box later with MJPEG/WebRTC stream</small>
+        </div>
+      </div>
+
+      <div class="panel map-panel">
+        <div class="panel-title">Station Map & Robot Tracking</div>
+        <div class="map">
+          <div class="track t1">Platform 1</div>
+          <div class="track t2">Platform 2</div>
+          <div class="track t3">Platform 3</div>
+          <div id="robot-marker" class="robot-marker">Q01</div>
+        </div>
+      </div>
+
+      <div class="panel alerts-panel">
+        <div class="panel-title">Recent Alerts</div>
+        <div id="alerts" class="alerts-list"></div>
+      </div>
+
+      <div class="panel status-panel">
+        <div class="panel-title">Robot Status</div>
+        <div class="status-row"><span>Location</span><b id="location">--</b></div>
+        <div class="status-row"><span>Temperature</span><b id="temperature">--</b></div>
+        <div class="status-row"><span>Battery</span><b id="battery2">--</b></div>
+        <div class="actions">
+          <button>Stop</button>
+          <button>Return to Base</button>
+          <button>Manual Control</button>
+        </div>
+      </div>
+
+      <div class="panel flow-panel">
+        <div class="panel-title">Implementation / Detection Flow</div>
+        <div class="flow">
+          <div>1<br><b>Patrol</b></div><span>→</span>
+          <div>2<br><b>Acquire</b></div><span>→</span>
+          <div>3<br><b>Analyze</b></div><span>→</span>
+          <div>4<br><b>Alert</b></div><span>→</span>
+          <div>5<br><b>RPF Action</b></div>
+        </div>
+      </div>
+
+      <div class="panel log-panel">
+        <div class="panel-title">Incident Log</div>
+        <table>
+          <thead>
+            <tr><th>Time</th><th>Event</th><th>Location</th><th>Status</th></tr>
+          </thead>
+          <tbody id="incident-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
