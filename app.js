@@ -197,3 +197,103 @@ function addNetlifyAlert(data, now) {
         incidentBody.prepend(row);
     }
 }
+function netlifyDemo(scenario) {
+  const now = new Date();
+
+  let data;
+
+  if (scenario === "normal") {
+    data = {
+      alert_type: "No Threat",
+      confidence: 0.08,
+      location: "Platform 2",
+      ims: "Normal",
+      voc: "Stable"
+    };
+  }
+
+  if (scenario === "narcotics") {
+    data = {
+      alert_type: "Narcotics Suspect - Cocaine",
+      confidence: 0.91,
+      location: "Platform 2",
+      ims: "Positive",
+      voc: "Anomalous"
+    };
+  }
+
+  if (scenario === "explosive") {
+    data = {
+      alert_type: "Explosive Suspect - RDX",
+      confidence: 0.88,
+      location: "Platform 3",
+      ims: "Positive",
+      voc: "High Risk"
+    };
+  }
+
+  if (!data) return;
+
+  document.getElementById("ims-response").innerText = data.ims;
+  document.getElementById("voc-response").innerText = data.voc;
+  document.getElementById("threat-class").innerText = data.alert_type;
+  document.getElementById("threat-confidence").innerText =
+    Math.round(data.confidence * 100) + "%";
+
+  if (scenario !== "normal") {
+    addDemoAlert(data, now);
+    showDemoPopup(data);
+  }
+}
+
+function showDemoPopup(data) {
+  document.getElementById("popup-class").innerText = data.alert_type;
+  document.getElementById("popup-location").innerText =
+    "Location: " + data.location;
+  document.getElementById("popup-confidence").innerText =
+    "Confidence: " + Math.round(data.confidence * 100) + "%";
+
+  document.getElementById("threat-popup").classList.remove("hidden");
+}
+
+function closePopup() {
+  document.getElementById("threat-popup").classList.add("hidden");
+}
+
+function addDemoAlert(data, now) {
+  const alertsList = document.getElementById("alerts");
+
+  if (alertsList) {
+    const card = document.createElement("div");
+    card.className = "alert-card";
+
+    card.innerHTML = `
+      <b>${data.alert_type}</b>
+      <div>${data.location}</div>
+      <div class="meta">
+        NETRA-01 • ${Math.round(data.confidence * 100)}%
+        • ${now.toLocaleTimeString()}
+      </div>
+    `;
+
+    alertsList.prepend(card);
+  }
+
+  const incidentBody = document.getElementById("incident-body");
+
+  if (incidentBody) {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${now.toLocaleTimeString()}</td>
+      <td>${data.alert_type}</td>
+      <td>${data.location}</td>
+      <td class="status-open">Open</td>
+    `;
+
+    incidentBody.prepend(row);
+  }
+
+  const location = document.getElementById("location");
+  if (location) location.innerText = data.location;
+}
