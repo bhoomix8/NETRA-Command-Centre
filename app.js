@@ -81,3 +81,119 @@ loadAlerts();
 setInterval(loadStatus, 3000);
 setInterval(loadAlerts, 5000);
 connectWS();
+function netlifyDemo(scenario) {
+    const now = new Date();
+
+    let data;
+
+    if (scenario === "normal") {
+        data = {
+            alert_type: "No Threat",
+            confidence: 0.08,
+            location: "Platform 2",
+            ims: "Normal",
+            voc: "Stable"
+        };
+    }
+
+    if (scenario === "narcotics") {
+        data = {
+            alert_type: "Narcotics Suspect - Cocaine",
+            confidence: 0.91,
+            location: "Platform 2",
+            ims: "Positive",
+            voc: "Anomaly"
+        };
+    }
+
+    if (scenario === "explosive") {
+        data = {
+            alert_type: "Explosive Suspect - RDX",
+            confidence: 0.88,
+            location: "Platform 3",
+            ims: "Positive",
+            voc: "High Risk"
+        };
+    }
+
+    if (!data) return;
+
+    updateNetlifySensorPanel(data);
+
+    if (scenario !== "normal") {
+        addNetlifyAlert(data, now);
+        showNetlifyPopup(data);
+    }
+}
+
+function updateNetlifySensorPanel(data) {
+    const threat = document.getElementById("threat-class");
+    const confidence = document.getElementById("threat-confidence");
+    const ims = document.getElementById("ims-response");
+    const voc = document.getElementById("voc-response");
+
+    if (threat) threat.innerText = data.alert_type;
+    if (confidence) confidence.innerText =
+        Math.round(data.confidence * 100) + "%";
+    if (ims) ims.innerText = data.ims;
+    if (voc) voc.innerText = data.voc;
+}
+
+function showNetlifyPopup(data) {
+    const popup = document.getElementById("threat-popup");
+
+    if (!popup) return;
+
+    document.getElementById("popup-class").innerText =
+        data.alert_type;
+
+    document.getElementById("popup-location").innerText =
+        "Location: " + data.location;
+
+    document.getElementById("popup-confidence").innerText =
+        "Confidence: " + Math.round(data.confidence * 100) + "%";
+
+    popup.classList.remove("hidden");
+}
+
+function closePopup() {
+    const popup = document.getElementById("threat-popup");
+    if (popup) popup.classList.add("hidden");
+}
+
+function addNetlifyAlert(data, now) {
+    const alertsList =
+        document.querySelector(".alerts-list");
+
+    if (alertsList) {
+        const card = document.createElement("div");
+        card.className = "alert-card";
+
+        card.innerHTML = `
+            <b>${data.alert_type}</b>
+            <div>${data.location}</div>
+            <div class="meta">
+                NETRA-01 • ${Math.round(data.confidence * 100)}%
+                • ${now.toLocaleTimeString()}
+            </div>
+        `;
+
+        alertsList.prepend(card);
+    }
+
+    const incidentBody =
+        document.getElementById("incident-body");
+
+    if (incidentBody) {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${now.toLocaleTimeString()}</td>
+            <td>${data.alert_type}</td>
+            <td>${data.location}</td>
+            <td class="status-open">Open</td>
+        `;
+
+        incidentBody.prepend(row);
+    }
+}
