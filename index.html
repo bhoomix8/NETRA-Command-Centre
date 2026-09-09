@@ -64,6 +64,35 @@
         <div id="alerts" class="alerts-list"></div>
       </div>
 
+      <div class="panel sensor-panel">
+  <div class="panel-title">Threat Detection Simulation</div>
+
+  <div class="status-row">
+    <span>IMS Response</span>
+    <b id="ims-response">Normal</b>
+  </div>
+
+  <div class="status-row">
+    <span>VOC Pattern</span>
+    <b id="voc-response">Stable</b>
+  </div>
+
+  <div class="status-row">
+    <span>Threat Class</span>
+    <b id="threat-class">Clear</b>
+  </div>
+
+  <div class="status-row">
+    <span>Confidence</span>
+    <b id="threat-confidence">8%</b>
+  </div>
+
+  <div class="actions">
+    <button onclick="netlifyDemo('normal')">Normal Scan</button>
+    <button onclick="netlifyDemo('narcotics')">Narcotics Demo</button>
+    <button onclick="netlifyDemo('explosive')">Explosive Demo</button>
+  </div>
+</div>
       <div class="panel status-panel">
         <div class="panel-title">Robot Status</div>
         <div class="status-row"><span>Location</span><b id="location">--</b></div>
