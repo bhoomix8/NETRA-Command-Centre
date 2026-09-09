@@ -59,10 +59,12 @@ th{color:var(--muted)}
 .threat-popup {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.75);
+  background: rgba(0,0,0,0.78);
+  
   display: flex;
   align-items: center;
   justify-content: center;
+  
   z-index: 9999;
 }
 
@@ -73,10 +75,15 @@ th{color:var(--muted)}
 .popup-box {
   width: 420px;
   background: #0c1d2d;
+  
   border: 2px solid #ff4d5f;
   border-radius: 16px;
-  padding: 28px;
+  
+  padding: 30px;
+  
   text-align: center;
+
+  box-shadow: 0 0 35px rgba(255,77,95,0.35);
 }
 
 .popup-box h2 {
@@ -84,12 +91,16 @@ th{color:var(--muted)}
 }
 
 .popup-box button {
-  margin-top: 16px;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 8px;
-  background: #ff4d5f;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
+    margin-top: 18px;
+
+    padding: 10px 20px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #ff4d5f;
+    color: white;
+
+    font-weight: 700;
+    cursor: pointer;
 }
